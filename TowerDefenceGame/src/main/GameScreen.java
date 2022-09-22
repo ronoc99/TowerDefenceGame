@@ -1,13 +1,12 @@
 package main;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Random;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
+
+import inputs.KeyBoardListener;
+import inputs.MyMouseListener;
 
 public class GameScreen extends JPanel {
 
@@ -15,8 +14,10 @@ public class GameScreen extends JPanel {
 	private Game game;
 	private Dimension size;
 	
-
+	private MyMouseListener myMouseListener;
+	private KeyBoardListener keyboardListener; 
 	
+
 	public GameScreen(Game game) {
 		this.game = game;
 		
@@ -24,6 +25,17 @@ public class GameScreen extends JPanel {
 		
 		setPanelSize();	
 
+	}
+	
+	public void initInputs() {
+		myMouseListener = new MyMouseListener(game); //might need to refer game
+		keyboardListener = new KeyBoardListener();
+		
+		addMouseListener(myMouseListener);
+		addMouseMotionListener(myMouseListener);
+		addKeyListener(keyboardListener);
+		
+		requestFocus();
 	}
 
 	private void setPanelSize() {
