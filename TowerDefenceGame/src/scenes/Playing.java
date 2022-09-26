@@ -1,88 +1,127 @@
 package scenes;
 
-import static main.GameStates.MENU;
-import static main.GameStates.SetGameState;
-
 import java.awt.Graphics;
-import java.io.FileNotFoundException;
+import java.awt.image.BufferedImage;
 
-import helperMethods.LevelBuild;
+import helperMethods.LoadSave;
 import main.Game;
-import managers.TileManager;
-import ui.MyButton;
+import ui.ActionBar;
 
 public class Playing extends GameScene implements SceneMethods {
 
 	private int[][] lvl;
-	private TileManager tileManager;
-	private MyButton bMenu;
+	
+	
+	
+	private ActionBar bottomBar;
+	
+    private int mouseX, mouseY;
 
-	public Playing(Game game) {
+    public Playing(Game game) {
 		super(game);
-		initButtons();
+		loadDefaultLevel();
 
-		lvl = LevelBuild.getLevelData();
-		try {
-			tileManager = new TileManager();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 
-		// The lvl
-		// TileManager
+		bottomBar = new ActionBar(0, 640, 640, 100, this);
+		
+		//LoadSave.CreateFile();
+		//LoadSave.WriteToFile();
+		//LoadSave.ReadFromFile();
+		
+		
+		
 
 	}
 	
-	private void initButtons() {
-		bMenu = new MyButton("Menu", 2, 2, 100, 30);
 
+
+	private void loadDefaultLevel() {
+		lvl = LoadSave.GetLevelData("new_level");
+	}
+	
+	public void setLevel(int[][] lvl) {
+		this.lvl = lvl;
 	}
 
 	@Override
 	public void render(Graphics g) {
-
-		for (int y = 0; y < lvl.length; y++) {
-			for (int x = 0; x < lvl[y].length; x++) {
-				int id = lvl[y][x];
-				g.drawImage(tileManager.getSprite(id), x * 32, y * 32, null);
-			}
-		}
+		drawLevel(g);
+		bottomBar.draw(g);
 		
-		drawButtons(g);
 
 	}
 	
-	private void drawButtons(Graphics g) {
-		bMenu.draw(g);
-
+	private void drawLevel(Graphics g) {
+		for (int y = 0; y < lvl.length; y++) {
+			for (int x = 0; x < lvl[y].length; x++) {
+				int id = lvl[y][x];
+				g.drawImage(getSprite(id), x * 32, y * 32, null);
+			}
+		}
+		
 	}
+
+
+
+	private BufferedImage getSprite(int spriteID) {
+		return game.getTileManager().getSprite(spriteID);
+		
+	}
+	
+	
+	
+
+
+
+
+
+	
 
 	@Override
 	public void mouseClicked(int x, int y) {
-		if (bMenu.getBounds().contains(x, y))
-			SetGameState(MENU);
+		if(y>=640) {
+			bottomBar.mouseClicked(x,y);
+		} 
+		
 		
 	}
 
 	@Override
 	public void mouseMoved(int x, int y) {
-		bMenu.setMouseOver(false);
-		if (bMenu.getBounds().contains(x, y))
-			bMenu.setMouseOver(true);
-		
+		if (y >= 640) {
+			bottomBar.mouseMoved(x, y);
+
+		} else {
+
+			mouseX = (x / 32) * 32;
+			mouseY = (y / 32) * 32;
+		}
 	}
 
 	@Override
 	public void mousePressed(int x, int y) {
-		if (bMenu.getBounds().contains(x, y))
-			bMenu.setMousePressed(true);
+		if(y>=640) {
+			bottomBar.mousePressed(x,y);
+		} 
+		
 		
 	}
 	@Override
 	public void mouseReleased(int x, int y) {
-		bMenu.resetBooleans();
+		
+			bottomBar.mouseReleased(x,y);
+		
 		
 	}
 
+
+
+	@Override
+	public void mouseDragged(int x, int y) {
+		
+	}
+
+	
 }

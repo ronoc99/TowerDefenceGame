@@ -28,7 +28,7 @@ public class GameScreen extends JPanel {
 	}
 	
 	public void initInputs() {
-		myMouseListener = new MyMouseListener(game); //might need to refer game
+		myMouseListener = new MyMouseListener(game); 
 		keyboardListener = new KeyBoardListener();
 		
 		addMouseListener(myMouseListener);
@@ -39,7 +39,7 @@ public class GameScreen extends JPanel {
 	}
 
 	private void setPanelSize() {
-		size = new Dimension(640,640);
+		size = new Dimension(640,740);
 		setMinimumSize(size);
 		setPreferredSize(size);
 		setMaximumSize(size);
