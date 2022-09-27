@@ -7,12 +7,8 @@ import static main.GameStates.SetGameState;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import main.Game;
 import ui.MyButton;
@@ -26,8 +22,8 @@ public class Menu extends GameScene implements SceneMethods {
 
 	public Menu(Game game) throws FileNotFoundException {
 		super(game);
-		importImg();
-		loadSprites();
+		//importImg();
+		//loadSprites();
 		initButtons();
 		
 	}
@@ -64,29 +60,29 @@ private void drawButtons(Graphics g) {
 		
 	}
 
-private void importImg() throws FileNotFoundException {
+//private void importImg() throws FileNotFoundException {
+//	
+//	InputStream is = new FileInputStream("C:/Users/Conor/git/TowerDefenceGame2/TowerDefenceGame/res/spriteatlas.png");
+//	try {
+//		img = ImageIO.read(is);
+//		
+//	} catch(Exception e) {
+//		
+//	}
+//	
+//}
 	
-	InputStream is = new FileInputStream("C:/Users/Conor/git/TowerDefenceGame2/TowerDefenceGame/res/spriteatlas.png");
-	try {
-		img = ImageIO.read(is);
-		
-	} catch(Exception e) {
-		
-	}
 	
-}
-	
-	
-	private void loadSprites() {
-
-		for (int y = 0; y < 10; y++) {
-			for (int x = 0; x < 10; x++) {
-				sprites.add(img.getSubimage(x * 32, y * 32, 32, 32));
-
-			}
-		}
-
-	}
+//	private void loadSprites() {
+//
+//		for (int y = 0; y < 10; y++) {
+//			for (int x = 0; x < 10; x++) {
+//				sprites.add(img.getSubimage(x * 32, y * 32, 32, 32));
+//
+//			}
+//		}
+//
+//	}
 
 	@Override
 	public void mouseClicked(int x, int y) {
