@@ -54,12 +54,7 @@ public class Game extends JFrame implements Runnable {
 		
 	}
 	private void initClasses() throws FileNotFoundException {
-		try {
-			tileManager = new TileManager();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tileManager = new TileManager();
 		render = new Render(this);
 		gameScreen = new GameScreen(this);
 		menu = new Menu(this);
