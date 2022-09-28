@@ -16,8 +16,7 @@ public class Game extends JFrame implements Runnable {
 	private GameScreen gameScreen;
 	private Thread gameThread;
 	
-	private int updates;
-	private long lastTimeUPS;
+
 	
 	private final double FPS_SET = 120.0;
 	private final double UPS_SET = 60.0;
